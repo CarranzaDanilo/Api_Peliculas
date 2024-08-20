@@ -2,18 +2,17 @@ from fastapi import FastAPI, HTTPException
 import pandas as pd
 
 
-df_central = pd.read_csv("C:/Users/Usuario/Desktop/Desarrollo de mi proyecto python/Proyecto/Data Limpia Movies/df_central.csv")
+df_central = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/df_central.csv")
+
+df_director_name = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_director_name.csv")
+
+df_director = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_director.csv")
+
+df_cast_copia = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_cast_copia.csv")
+
+df_actor_unique = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_actor_unique.csv")
 
 
-df_title = pd.read_csv("C:/Users/Usuario/Desktop/Desarrollo de mi proyecto python/Proyecto/Data Limpia Movies/df_title.csv")
-
-
-df_director_name = pd.read_csv("C:/Users/Usuario/Desktop/Desarrollo de mi proyecto python/Proyecto/Data Limpia cast__crew/df_director_name.csv")
-
-df_director = pd.read_csv("C:/Users/Usuario/Desktop/Desarrollo de mi proyecto python/Proyecto/Data Limpia cast__crew/df_director.csv")
-
-
-df_central = pd.read_csv("C:/Users/Usuario/Desktop/Desarrollo de mi proyecto python/Proyecto/Data Limpia Movies/df_central.csv")
 
 
 app = FastAPI()
