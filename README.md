@@ -13,7 +13,7 @@ Aumenta la Transparencia y Reproducibilidad: Al documentar el proceso y los resu
 Impulsa la Colaboración: Un README claro y bien estructurado ayuda a nuevos colaboradores a integrarse rápidamente, permitiéndoles contribuir de manera efectiva al proyecto.
 
 ## Descripción
-Este proyecto tiene como objetivo disponibilizar los datos sobre peliculas pasando por un proceso de ETL en el cual extraemos la informacion relevante para la solucion al problema la transformamos para su correcta manipulacion y la cargamos para comenzar a trabajar extrayendo informacion valiosa mediante un API que tiene como objetivo dar a conocer informacion valiosa que ayude a la toma de decisiones estratégicas y un ML que ayude a recomendar otro tipo de peliculas basado en la primera pelicula vista por el usuario.
+Este proyecto tiene como objetivo proporcionar datos sobre películas mediante un proceso de ETL, donde se extrae la información relevante, se transforma para una correcta manipulación y se carga para su análisis. Después de limpiar los datos, se llevó a cabo una etapa de Análisis Exploratorio de Datos (EDA) para obtener un mejor entendimiento. Luego, se desarrolló una API que facilita el acceso a información clave para la toma de decisiones estratégicas. Además, se implementó un sistema de recomendación de películas basado en machine learning, el cual sugiere películas similares basadas en el género de la primera película vista por el usuario. Este enfoque permite ofrecer recomendaciones personalizadas según las preferencias del usuario, mejorando su experiencia y ayudando en la selección de contenido relevante.
 
 ## Tabla de contenido 
 1. [Introducción](#introducción)
@@ -40,13 +40,13 @@ Este proyecto tiene como objetivo disponibilizar los datos sobre peliculas pasan
 4. Instalar las dependencias: `pip install -r requirements.txt`
    
 ## Metodología
-Se utilizaron diferentes tecnicas de Ingeneria de Datos como el ETL para disponibilizar los datos para posteriormente explorar y revisar que no contenga valos nulos o incorrectos que puedan afectar a nuestro modelo de ML o consultas de la APi realizando un manejo adecuado de las herramientas para poder llevar a cabo el proyecto
+Se emplearon diversas técnicas de Ingeniería de Datos, como el proceso ETL, para preparar y disponibilizar los datos. Posteriormente, se realizó una exploración exhaustiva para identificar y corregir valores nulos o incorrectos que pudieran afectar tanto al modelo de machine learning como a las consultas de la API. Este manejo adecuado de las herramientas fue fundamental para llevar a cabo el proyecto de manera exitosa.
 
 ## Datos y Fuentes
-Los datos utilizados en este proyecto provienen del dataset propuestos.
+Los datos empleados en este proyecto provienen de los conjuntos de datos proporcionados.
 
 ## Estructura del Proyecto
-- `data/`: Contiene los archivos de datos utilizados en el proyecto.
+- `proyecto/`: Contiene los archivos de datos utilizados en el proyecto.
 - `notebooks/`: Incluye el notebook con el ETL.
 - `src/`: Código fuente del proyecto.
 - `README.md`: Archivo de documentación del proyecto.
@@ -55,4 +55,4 @@ Los datos utilizados en este proyecto provienen del dataset propuestos.
 Los contribuidores son bienvenidos a reportar problemas, enviar solicitudes de funciones o enviar pull requests en el repositorio de GitHub.
 
 ## Autor:
-Este proyecto fue realizado por: Danilo Carranza .
+Este proyecto ha sido realizado por Danilo Carranza, quien se encargó de su desarrollo integral.
