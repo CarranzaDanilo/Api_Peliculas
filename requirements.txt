@@ -65,3 +65,4 @@ tzdata==2024.1
 urllib3==2.2.1
 wcwidth==0.2.6
 xlrd==2.0.1
+uvicorn
