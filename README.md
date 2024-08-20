@@ -1,4 +1,4 @@
-# Proyecto_Henry_MLOps
+# Proyecto_API_Peliculas
 ## La Importancia de la Documentación en Proyectos de Ciencia de Datos:
 
 La documentación desempeña un papel crucial en los proyectos de Ciencia de Datos por varias razones fundamentales:
@@ -33,7 +33,7 @@ Este proyecto tiene como objetivo disponibilizar los datos sobre peliculas pasan
 - scikit-learn
 
 **Pasos de instlación**
-1. Clonar el repositorio (https://github.com/Nico22724/Proyecto_Henry_MLOps.git)
+1. Clonar el repositorio (https://github.com/CarranzaDanilo/Api_Peliculas.git)
 2. Crear un entorno virtual: `python -m venv venv`
 3. Activar el entorno virtual:
    - Windows: `venv\Scripts\activate`
@@ -55,5 +55,5 @@ Los datos utilizados en este proyecto provienen del dataset propuestos.
 ## Contribución y Colaboración
 Los contribuidores son bienvenidos a reportar problemas, enviar solicitudes de funciones o enviar pull requests en el repositorio de GitHub.
 
-## Autores:
-Este proyecto fue realizado por: Nicolas Hoyos .
+## Autor:
+Este proyecto fue realizado por: Danilo Carranza .
