@@ -4,6 +4,8 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from fastapi.responses import RedirectResponse
+
 
 
 url_df_central = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/df_central.csv"
@@ -29,10 +31,12 @@ df_actor_unique = pd.read_csv (url_df_actor_unique)
 
 app = FastAPI()
 
-# Definir la ruta raíz
-@app.get("/")
-def read_root():
-    return {"mensaje": "Bienvenido a la API de películas. Usa los endpoints para consultar información."}
+# Redirigir la ruta raíz a la documentación de Swagger
+@app.get("/", include_in_schema=False)  # include_in_schema=False oculta esta ruta de la documentación
+def root():
+    return RedirectResponse(url="/docs")
+
+
 
 # Se ingresa un mes en idioma Español. Debe devolver la cantidad de películas que fueron estrenadas en el mes 
 # consultado en la totalidad del dataset.
@@ -210,20 +214,20 @@ df_genres_id['id'] = df_genres_id['id'].astype(str)
 df_central['id'] = df_central['id'].astype(str)
     
 # Función para combinar información de las películas
-def obtener_peliculas_completas():
-    df_completa = df_genres_id.merge(df_central, on='id')
-    df_completa = df_completa.head(1000)
-    df_completa['genres'] = df_completa.groupby('id')['genre'].transform(lambda x: ' '.join(x))
-    df_completa = df_completa.drop_duplicates(subset=['id'])
-    df_completa = df_completa[['id', 'title', 'genres']]
-    return df_completa
+def obtener_peliculas_combinado():
+    df_combinado = df_genres_id.merge(df_central, on='id')
+    df_combinado = df_combinado.head(1000)
+    df_combinado['genres'] = df_combinado.groupby('id')['genre'].transform(lambda x: ' '.join(x))
+    df_combinado = df_combinado.drop_duplicates(subset=['id'])
+    df_combinado = df_combinado[['id', 'title', 'genres']]
+    return df_combinado
 
 # Obtener el DataFrame consolidado
-df_peliculas_completas = obtener_peliculas_completas()
+df_peliculas_reducido = obtener_peliculas_combinado()
 
 # Vectorizar los géneros para calcular la similitud
 vectorizer = TfidfVectorizer()
-tfidf_matrix = vectorizer.fit_transform(df_peliculas_completas['genres'])
+tfidf_matrix = vectorizer.fit_transform(df_peliculas_reducido['genres'])
 
 # Calcular la similitud del coseno
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
@@ -231,7 +235,7 @@ cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 # Función para obtener el índice de la película dado su título
 def obtener_indice_titulo(titulo):
     try:
-        return df_peliculas_completas[df_peliculas_completas['title'].str.contains(titulo, case=False)].index[0]
+        return df_peliculas_reducido[df_peliculas_reducido['title'].str.contains(titulo, case=False)].index[0]
     except IndexError:
         raise HTTPException(status_code=404, detail="Película no encontrada")
 
@@ -241,5 +245,5 @@ def recomendacion(titulo: str):
     indice_pelicula = obtener_indice_titulo(titulo)
     similitudes = list(enumerate(cosine_sim[indice_pelicula]))
     similitudes = sorted(similitudes, key=lambda x: x[1], reverse=True)
-    peliculas_similares = [df_peliculas_completas['title'].iloc[i[0]] for i in similitudes[1:6]]
+    peliculas_similares = [df_peliculas_reducido['title'].iloc[i[0]] for i in similitudes[1:6]]
     return {"titulo": titulo, "recomendaciones": peliculas_similares}
