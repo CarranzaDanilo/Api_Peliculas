@@ -1,5 +1,7 @@
 # Proyecto_API_Peliculas
+
 El Valor de la Documentación en Proyectos de Ciencia de Datos
+
 La documentación es esencial en proyectos de Ciencia de Datos por diversas razones clave:
 
 Facilita la Comprensión: Una documentación bien elaborada permite que otros colaboradores y futuros desarrolladores entiendan rápidamente el propósito, la estructura y la funcionalidad del proyecto.
