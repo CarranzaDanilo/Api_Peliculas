@@ -152,8 +152,6 @@ def get_actor(nombre_actor: str):
     }
 
 
-
-
 # Suponiendo que los DataFrames están cargados globalmente
 # df_director_name, df_director, df_central
 
