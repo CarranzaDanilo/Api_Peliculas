@@ -17,10 +17,12 @@ url_df_actor_unique = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peli
 df_actor_unique = pd.read_csv (url_df_actor_unique)
 
 
-
 app = FastAPI()
 
-
+# Definir la ruta raíz
+@app.get("/")
+def read_root():
+    return {"mensaje": "Bienvenido a la API de películas. Usa los endpoints para consultar información."}
 
 # Se ingresa un mes en idioma Español. Debe devolver la cantidad de películas que fueron estrenadas en el mes 
 # consultado en la totalidad del dataset.
@@ -70,9 +72,6 @@ def cantidad_filmaciones_dia(dia: str):
     cantidad = int(len(peliculas_dia))  # Convertir a tipo nativo de Python
     return {"dia": dia, "cantidad": cantidad, "mensaje": f"{cantidad} películas fueron estrenadas en los días {dia}"}
 
-
-    
-    
 
 @app.get("/score_titulo/{titulo}")
 def score_titulo(titulo: str):
