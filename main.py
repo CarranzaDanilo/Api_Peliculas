@@ -1,17 +1,20 @@
 from fastapi import FastAPI, HTTPException
 import pandas as pd
 
+url_df_central = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/df_central.csv"
+df_central = pd.read_csv(url_df_central)
 
-df_central = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/df_central.csv")
+url_df_director_name = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_director_name.csv"
+df_director_name = pd.read_csv(url_df_director_name)
 
-df_director_name = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_director_name.csv")
+url_df_director = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_director.csv"
+df_director = pd.read_csv(url_df_director)
 
-df_director = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_director.csv")
+url_df_cast_copia = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_cast_copia.csv"
+df_cast_copia = pd.read_csv(url_df_cast_copia)
 
-df_cast_copia = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_cast_copia.csv")
-
-df_actor_unique = pd.read_csv("https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_actor_unique.csv")
-
+url_df_actor_unique = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_actor_unique.csv"
+df_actor_unique = pd.read_csv (url_df_actor_unique)
 
 
 
