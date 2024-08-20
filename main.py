@@ -1,13 +1,17 @@
 from fastapi import FastAPI, HTTPException
 import pandas as pd
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+
+
 url_df_central = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/df_central.csv"
 df_central = pd.read_csv(url_df_central)
 
 
 url_df_genres_id = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/df_genres_id.csv"
 df_genres_id = pd.read_csv(url_df_genres_id)
-
 
 
 url_df_director_name = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_director_name.csv"
@@ -201,3 +205,41 @@ def get_director(nombre_director: str):
     
     
     
+    
+df_genres_id['id'] = df_genres_id['id'].astype(str)
+df_central['id'] = df_central['id'].astype(str)
+    
+# Función para combinar información de las películas
+def obtener_peliculas_completas():
+    df_completa = df_genres_id.merge(df_central, on='id')
+    df_completa = df_completa.head(1000)
+    df_completa['genres'] = df_completa.groupby('id')['genre'].transform(lambda x: ' '.join(x))
+    df_completa = df_completa.drop_duplicates(subset=['id'])
+    df_completa = df_completa[['id', 'title', 'genres']]
+    return df_completa
+
+# Obtener el DataFrame consolidado
+df_peliculas_completas = obtener_peliculas_completas()
+
+# Vectorizar los géneros para calcular la similitud
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(df_peliculas_completas['genres'])
+
+# Calcular la similitud del coseno
+cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+
+# Función para obtener el índice de la película dado su título
+def obtener_indice_titulo(titulo):
+    try:
+        return df_peliculas_completas[df_peliculas_completas['title'].str.contains(titulo, case=False)].index[0]
+    except IndexError:
+        raise HTTPException(status_code=404, detail="Película no encontrada")
+
+# Función de recomendación
+@app.get("/recomendacion/{titulo}")
+def recomendacion(titulo: str):
+    indice_pelicula = obtener_indice_titulo(titulo)
+    similitudes = list(enumerate(cosine_sim[indice_pelicula]))
+    similitudes = sorted(similitudes, key=lambda x: x[1], reverse=True)
+    peliculas_similares = [df_peliculas_completas['title'].iloc[i[0]] for i in similitudes[1:6]]
+    return {"titulo": titulo, "recomendaciones": peliculas_similares}
