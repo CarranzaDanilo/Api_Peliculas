@@ -4,6 +4,12 @@ import pandas as pd
 url_df_central = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/df_central.csv"
 df_central = pd.read_csv(url_df_central)
 
+
+url_df_genres_id = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/df_genres_id.csv"
+df_genres_id = pd.read_csv(url_df_genres_id)
+
+
+
 url_df_director_name = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_director_name.csv"
 df_director_name = pd.read_csv(url_df_director_name)
 
@@ -192,3 +198,6 @@ def get_director(nombre_director: str):
         "retorno_total": retorno_total,
         "peliculas": peliculas_info
     }
+    
+    
+    
