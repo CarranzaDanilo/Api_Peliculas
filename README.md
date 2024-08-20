@@ -1,17 +1,14 @@
 # Proyecto_API_Peliculas
-## La Importancia de la Documentación en Proyectos de Ciencia de Datos:
+El Valor de la Documentación en Proyectos de Ciencia de Datos
+La documentación es esencial en proyectos de Ciencia de Datos por diversas razones clave:
 
-La documentación desempeña un papel crucial en los proyectos de Ciencia de Datos por varias razones fundamentales:
+Facilita la Comprensión: Una documentación bien elaborada permite que otros colaboradores y futuros desarrolladores entiendan rápidamente el propósito, la estructura y la funcionalidad del proyecto.
 
-Facilita el Entendimiento: Una documentación clara y detallada permite a colaboradores y futuros mantenedores comprender rápidamente el propósito, la estructura y el funcionamiento del proyecto.
+Promueve la Reutilización y Mantenimiento: La documentación adecuada facilita la reutilización de código, datos y metodologías, optimizando el desarrollo a lo largo del tiempo y asegurando la coherencia en las distintas etapas del proyecto.
 
-Promueve la Reutilización y Mantenimiento: Ayuda a reutilizar código, datos y metodologías, optimizando el desarrollo futuro y asegurando la consistencia en diferentes fases del proyecto.
+Aumenta la Transparencia y Reproducibilidad: Al documentar el proceso y los resultados, se facilita la validación y replicación de los análisis, garantizando que los hallazgos sean comprensibles y verificables.
 
-Fomenta la Transparencia y Reproducibilidad: Facilita la validación de resultados y la replicación de análisis, asegurando que los hallazgos sean comprensibles y verificables.
-
-Incentiva la Colaboración y Contribución: Un README bien estructurado facilita que nuevos colaboradores se integren al proyecto, entendiendo rápidamente cómo pueden contribuir y mejorar el trabajo existente.
-
-Para documentar de manera efectiva, organiza el README en secciones como Introducción, Instalación, Uso, Metodología, Resultados y Contribución. Utiliza un lenguaje claro y proporciona instrucciones detalladas para maximizar la utilidad y accesibilidad de la documentación.
+Impulsa la Colaboración: Un README claro y bien estructurado ayuda a nuevos colaboradores a integrarse rápidamente, permitiéndoles contribuir de manera efectiva al proyecto.
 
 ## Descripción
 Este proyecto tiene como objetivo disponibilizar los datos sobre peliculas pasando por un proceso de ETL en el cual extraemos la informacion relevante para la solucion al problema la transformamos para su correcta manipulacion y la cargamos para comenzar a trabajar extrayendo informacion valiosa mediante un API que tiene como objetivo dar a conocer informacion valiosa que ayude a la toma de decisiones estratégicas y un ML que ayude a recomendar otro tipo de peliculas basado en la primera pelicula vista por el usuario.
