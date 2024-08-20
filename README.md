@@ -47,7 +47,7 @@ Los datos empleados en este proyecto provienen de los conjuntos de datos proporc
 
 ## Estructura del Proyecto
 - `proyecto/`: Contiene los archivos de datos utilizados en el proyecto.
-- `notebooks/`: Incluye el notebook con el ETL.
+- `notebooks/`: Incluye el notebook con el ETL y el EDA.
 - `src/`: Código fuente del proyecto.
 - `README.md`: Archivo de documentación del proyecto.
 
