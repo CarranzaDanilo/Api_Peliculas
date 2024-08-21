@@ -28,6 +28,24 @@ df_cast_copia = pd.read_csv(url_df_cast_copia)
 url_df_actor_unique = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_actor_unique.csv"
 df_actor_unique = pd.read_csv (url_df_actor_unique)
 
+#url_df_top_50_actor = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_top_50_actor.csv"
+#df_top_50_actor = pd.read_csv (url_df_top_50_actor)
+
+#url_movie_return = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/movie_return.csv"
+#movie_return = pd.read_csv (url_movie_return)
+
+# Rutas de los archivos CSV
+movie_return_path = 'C:/Users/Usuario/Desktop/Api_Peliculas/Proyecto/Data Limpia Movies/movie_return.csv'
+f_top_50_actor_path = 'C:/Users/Usuario/Desktop/Api_Peliculas/Proyecto/Data Limpia cast__crew/df_top_50_actor.csv'
+
+# Leer los archivos CSV en DataFrames
+df_movie_return = pd.read_csv(movie_return_path)
+df_top_50_actor = pd.read_csv(f_top_50_actor_path)
+
+
+
+
+
 
 app = FastAPI()
 
@@ -106,6 +124,35 @@ def score_titulo(titulo: str):
     }
 
 
+df_movie_return['id'] = pd.to_numeric(df_movie_return['id'], errors='coerce')
+
+@app.get("/get_actor/{nombre_actor}")
+def get_actor(nombre_actor: str):
+    # Buscar el actor en df_top_50_actor
+    actor_info = df_top_50_actor[df_top_50_actor['name'].str.contains(nombre_actor, case=False, na=False)]
+    if actor_info.empty:
+        raise HTTPException(status_code=404, detail="Actor no encontrado")
+    
+    # Obtener las IDs de las películas en las que el actor ha participado
+    movie_ids = actor_info['id'].tolist()
+    
+    # Filtrar las películas y los retornos en df_movie_return
+    actor_returns = df_movie_return[df_movie_return['id'].isin(movie_ids)]
+    
+    # Calcular el éxito del actor
+    cantidad_peliculas = len(actor_returns)
+    retorno_total = actor_returns['return'].sum()
+    promedio_retorno = retorno_total / cantidad_peliculas if cantidad_peliculas > 0 else 0
+
+    return {
+        "actor": nombre_actor,
+        "cantidad_peliculas": cantidad_peliculas,
+        "retorno_total": retorno_total,
+        "promedio_retorno": promedio_retorno,
+        "mensaje": f"El actor {nombre_actor} ha participado en {cantidad_peliculas} filmaciones, consiguiendo un retorno de {retorno_total} con un promedio de {promedio_retorno} por filmación."
+    }
+
+
 
 @app.get("/votos_titulo/{titulo}")
 def votos_titulo(titulo: str):
@@ -132,38 +179,15 @@ def votos_titulo(titulo: str):
 
 
 
-@app.get("/get_actor/{nombre_actor}")
-def get_actor(nombre_actor: str):
-    # Buscar el id_actor en df_actor_unique por nombre
-    actor_info = df_actor_unique[df_actor_unique['name'].str.contains(nombre_actor, case=False, na=False)]
-    if actor_info.empty:
-        raise HTTPException(status_code=404, detail="Actor no encontrado")
-    
-    id_actor = actor_info.iloc[0]['id_actor']
+df_actor_unique['id_actor'] = df_actor_unique['id_actor'].astype(str)
+df_cast_copia['id_actor'] = df_cast_copia['id_actor'].astype(str)
+df_central['id'] = df_central['id'].astype(str)
+df_central['id'] = df_central['id'].astype(str)
 
-    # Filtrar las películas en las que ha participado el actor usando df_cast_copia
-    actor_movies = df_cast_copia[df_cast_copia['id_actor'] == id_actor]
-    if actor_movies.empty:
-        raise HTTPException(status_code=404, detail="No se encontraron películas para este actor")
-    
-    # Obtener los IDs de las películas
-    movie_ids = actor_movies['id'].tolist()
 
-    # Filtrar los retornos de las películas en df_central
-    actor_returns = df_central[df_central['id'].isin(movie_ids)]
 
-    # Calcular el éxito del actor
-    cantidad_peliculas = len(actor_returns)
-    retorno_total = actor_returns['return'].sum()
-    promedio_retorno = retorno_total / cantidad_peliculas if cantidad_peliculas > 0 else 0
 
-    return {
-        "actor": nombre_actor,
-        "cantidad_peliculas": cantidad_peliculas,
-        "retorno_total": retorno_total,
-        "promedio_retorno": promedio_retorno,
-        "mensaje": f"El actor {nombre_actor} ha participado en {cantidad_peliculas} filmaciones, consiguiendo un retorno de {retorno_total} con un promedio de {promedio_retorno} por filmación."
-    }
+
 
 
 # Suponiendo que los DataFrames están cargados globalmente
