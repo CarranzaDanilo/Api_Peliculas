@@ -28,20 +28,11 @@ df_cast_copia = pd.read_csv(url_df_cast_copia)
 url_df_actor_unique = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_actor_unique.csv"
 df_actor_unique = pd.read_csv (url_df_actor_unique)
 
-#url_df_top_50_actor = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_top_50_actor.csv"
-#df_top_50_actor = pd.read_csv (url_df_top_50_actor)
+url_df_top_50_actor = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20cast__crew/df_top_50_actor.csv"
+df_top_50_actor = pd.read_csv (url_df_top_50_actor)
 
-#url_movie_return = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/movie_return.csv"
-#movie_return = pd.read_csv (url_movie_return)
-
-# Rutas de los archivos CSV
-movie_return_path = 'C:/Users/Usuario/Desktop/Api_Peliculas/Proyecto/Data Limpia Movies/movie_return.csv'
-f_top_50_actor_path = 'C:/Users/Usuario/Desktop/Api_Peliculas/Proyecto/Data Limpia cast__crew/df_top_50_actor.csv'
-
-# Leer los archivos CSV en DataFrames
-df_movie_return = pd.read_csv(movie_return_path)
-df_top_50_actor = pd.read_csv(f_top_50_actor_path)
-
+url_movie_return = "https://raw.githubusercontent.com/CarranzaDanilo/Api_Peliculas/main/Proyecto/Data%20Limpia%20Movies/movie_return.csv"
+movie_return = pd.read_csv (url_movie_return)
 
 
 
@@ -124,7 +115,7 @@ def score_titulo(titulo: str):
     }
 
 
-df_movie_return['id'] = pd.to_numeric(df_movie_return['id'], errors='coerce')
+movie_return['id'] = pd.to_numeric(movie_return['id'], errors='coerce')
 
 @app.get("/get_actor/{nombre_actor}")
 def get_actor(nombre_actor: str):
@@ -136,8 +127,8 @@ def get_actor(nombre_actor: str):
     # Obtener las IDs de las películas en las que el actor ha participado
     movie_ids = actor_info['id'].tolist()
     
-    # Filtrar las películas y los retornos en df_movie_return
-    actor_returns = df_movie_return[df_movie_return['id'].isin(movie_ids)]
+    # Filtrar las películas y los retornos en movie_return
+    actor_returns = movie_return[movie_return['id'].isin(movie_ids)]
     
     # Calcular el éxito del actor
     cantidad_peliculas = len(actor_returns)
